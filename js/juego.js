@@ -4,6 +4,7 @@ var instrucciones = [];
 var movimientos = [];
 
 // Representación de la grilla. Cada número representa a una pieza.
+// cambiemos para ver que pasa en git
 // El 9 es la posición vacía
 var grilla = [
     [1, 2, 3],
