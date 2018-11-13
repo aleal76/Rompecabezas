@@ -13,10 +13,10 @@ ul {
   list-style: none;
 }
 li {
-
   padding: 5px 0;
   animation: fadein 5s;
 }
+
 li::before {
   content: "• ";
   color: #EC6778;
@@ -40,8 +40,6 @@ li::before {
 
 .col-60 {
   background: #E84A5F;
-
-
 }
 
 #flecha{
@@ -56,14 +54,27 @@ li::before {
   
   text-align: center;
   animation: fadein 2s;
-  
+
 }
 
-
 #juego {
-  background-color: red;
+  background-color: green;
   width: 600px;
   height: 600px;
+ 
+}
+
+.piezas img {
+  float:left;
+  padding-left: 1%;
+  padding-top: 1%;
+  width: 32%;
+  height: 32%;
+}
+
+#objetivo img {
+ width: 80%;
+ 
 }
 
 @keyframes fadein {
@@ -71,9 +82,3 @@ li::before {
   to   { opacity: 1; }
 }
 
-.piezas img {
-  float:left;
-  padding:1%;
-  width: 31%;
-  height: 31%;
-}
