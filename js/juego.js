@@ -1,5 +1,5 @@
 // Arreglo que contiene las intrucciones del juego 
-var instrucciones = ["Debes ir moviendo","las piezas","hasta tanto","logres observar el resultado final","en tu pantalla principal","Suerte!"];
+var instrucciones = ["Muevete con las flechas","así moerás la pieza vacía","Suerte!"];
 // Arreglo para ir guardando los movimientos que se vayan realizando
 var movimientos = [];
 
@@ -17,7 +17,7 @@ var filaVacia = 2;
 var columnaVacia = 2;
 
 
-var ultimaDireccion=38; // variable que guardará la ultima dirección
+//var ultimaDireccion=38; // variable que guardará la ultima dirección
 
 /* Esta función deberá recorrer el arreglo de instrucciones pasado por parámetro. 
 Cada elemento de este arreglo deberá ser mostrado en la lista con id 'lista-instrucciones'. 
@@ -35,21 +35,45 @@ function mostrarInstrucciones(instrucciones) {
 y utilice actualizarUltimoMovimiento para mostrarlo en pantalla */
 
 
-function agregaUltimoMovimiento(ultimaDireccion){
-  alert("aquí estoy");
- movimientos.push(ultimaDireccion);
-  actualizarUltimoMovimiento(ultimaDireccion);
+function agregaUltimoMovimiento(direccion){
+   movimientos.push(direccion);
+  actualizarUltimoMovimiento(direccion);
 }
 
 
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
-    //COMPLETAR
+  var i=0;
+  var j=0;
+  var gano=true;
+  var ganadora = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+  for(i=0;i<grilla.length;i++) 
+  {
+    for(j=0;j<grilla[i].length;j++)
+    { 
+      if(grilla[i][j]!=ganadora[i][j])
+      {
+        gano=false;
+      }
+
+    }
+  }
+
+return(gano);
 }
+
+
+
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
+
+  alert("Ganó....!");
     //COMPLETAR
 }
 
@@ -64,18 +88,29 @@ En vez de intercambiar esos valores vamos a terminar teniendo en ambas posicione
 Se te ocurre cómo solucionar esto con una variable temporal?
 */
 function intercambiarPosicionesGrilla(filaPos1, columnaPos1, filaPos2, columnaPos2) {
-    //COMPLETAR
+    var temp=0;
+    temp=grilla[filaPos1][columnaPos1];
+    grilla[filaPos1][columnaPos1]=grilla[filaPos2][columnaPos2];
+    grilla[filaPos2][columnaPos2]=temp;
 }
 
 // Actualiza la posición de la pieza vacía
 function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
-    //COMPLETAR
+    filaVacia=nuevaFila;
+    columnaVacia=nuevaColumna;
+    alert("aquí cambiando vacia"+filaVacia+columnaVacia);  
 }
 
 
 // Para chequear si la posicón está dentro de la grilla.
 function posicionValida(fila, columna) {
-    //COMPLETAR
+    if(fila<3 && columna < 3)
+        {
+          return(true);
+        }
+        else {
+               return (false);
+             }
 }
 
 /* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
@@ -83,9 +118,10 @@ Las direcciones están dadas por números que representa: arriba (38), abajo (40
 function moverEnDireccion(direccion) {
   var nuevaFilaPiezaVacia;
   var nuevaColumnaPiezaVacia;
-
+  
   // Mueve pieza hacia la abajo, reemplazandola con la blanca
   if (direccion === codigosDireccion.ABAJO) {
+   
     nuevaFilaPiezaVacia = filaVacia - 1;
     nuevaColumnaPiezaVacia = columnaVacia;
   }
@@ -98,12 +134,16 @@ function moverEnDireccion(direccion) {
     
   // Mueve pieza hacia la derecha, reemplazandola con la blanca
   else if (direccion === codigosDireccion.DERECHA) {
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia + 1;
     //COMPLETAR
   }
     
   // Mueve pieza hacia la izquierda, reemplazandola con la blanca
   else if (direccion === codigosDireccion.IZQUIERDA) {
-    // COMPLETAR
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia - 1;
+    
   }
 
   /* A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
@@ -111,10 +151,12 @@ function moverEnDireccion(direccion) {
   las funciones posicionValida, intercambiarPosicionesGrilla y actualizarPosicionVacia */
 
     if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
+  
         intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
         actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
 
   //COMPLETAR: Agregar la dirección del movimiento al arreglo de movimientos
+  agregaUltimoMovimiento(direccion);
 
     }
 }
@@ -253,7 +295,7 @@ y ejecutando la función para que se capturen las teclas que
 presiona el usuario */
 function iniciar() {
 	  mostrarInstrucciones(instrucciones);
-    mezclarPiezas(30);
+    mezclarPiezas(10);
     capturarTeclas();
 }
 
